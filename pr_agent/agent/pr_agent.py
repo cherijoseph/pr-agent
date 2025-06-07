@@ -18,7 +18,6 @@ from pr_agent.tools.pr_help_message import PRHelpMessage
 from pr_agent.tools.pr_line_questions import PR_LineQuestions
 from pr_agent.tools.pr_questions import PRQuestions
 from pr_agent.tools.pr_reviewer import PRReviewer
-from pr_agent.tools.pr_similar_issue import PRSimilarIssue
 from pr_agent.tools.pr_update_changelog import PRUpdateChangelog
 
 command2class = {
@@ -37,7 +36,6 @@ command2class = {
     "config": PRConfig,
     "settings": PRConfig,
     "help": PRHelpMessage,
-    "similar_issue": PRSimilarIssue,
     "add_docs": PRAddDocs,
     "generate_labels": PRGenerateLabels,
     "help_docs": PRHelpDocs,
