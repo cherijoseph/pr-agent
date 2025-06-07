@@ -4,7 +4,7 @@ from functools import partial
 from jinja2 import Environment, StrictUndefined
 
 from pr_agent.algo.ai_handlers.base_ai_handler import BaseAiHandler
-from pr_agent.algo.ai_handlers.litellm_ai_handler import LiteLLMAIHandler
+from pr_agent.algo.ai_handlers.simple_api_handler import SimpleAPIHandler
 from pr_agent.algo.pr_processing import get_pr_diff, retry_with_fallback_models
 from pr_agent.algo.token_handler import TokenHandler
 from pr_agent.algo.utils import ModelType
@@ -16,7 +16,7 @@ from pr_agent.servers.help import HelpMessage
 
 
 class PRQuestions:
-    def __init__(self, pr_url: str, args=None, ai_handler: partial[BaseAiHandler,] = LiteLLMAIHandler):
+    def __init__(self, pr_url: str, args=None, ai_handler: partial[BaseAiHandler,] = SimpleAPIHandler):
         question_str = self.parse_args(args)
         self.pr_url = pr_url
         self.git_provider = get_git_provider()(pr_url)

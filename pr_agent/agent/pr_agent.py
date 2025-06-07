@@ -2,7 +2,7 @@ import shlex
 from functools import partial
 
 from pr_agent.algo.ai_handlers.base_ai_handler import BaseAiHandler
-from pr_agent.algo.ai_handlers.litellm_ai_handler import LiteLLMAIHandler
+from pr_agent.algo.ai_handlers.simple_api_handler import SimpleAPIHandler
 from pr_agent.algo.cli_args import CliArgs
 from pr_agent.algo.utils import update_settings_from_args
 from pr_agent.config_loader import get_settings
@@ -48,7 +48,7 @@ commands = list(command2class.keys())
 
 
 class PRAgent:
-    def __init__(self, ai_handler: partial[BaseAiHandler,] = LiteLLMAIHandler):
+    def __init__(self, ai_handler: partial[BaseAiHandler,] = SimpleAPIHandler):
         self.ai_handler = ai_handler  # will be initialized in run_action
 
     async def handle_request(self, pr_url, request, notify=None) -> bool:

@@ -9,7 +9,7 @@ import yaml
 from jinja2 import Environment, StrictUndefined
 
 from pr_agent.algo.ai_handlers.base_ai_handler import BaseAiHandler
-from pr_agent.algo.ai_handlers.litellm_ai_handler import LiteLLMAIHandler
+from pr_agent.algo.ai_handlers.simple_api_handler import SimpleAPIHandler
 from pr_agent.algo.pr_processing import (OUTPUT_BUFFER_TOKENS_HARD_THRESHOLD,
                                          get_pr_diff,
                                          get_pr_diff_multiple_patchs,
@@ -32,7 +32,7 @@ from pr_agent.tools.ticket_pr_compliance_check import (
 
 class PRDescription:
     def __init__(self, pr_url: str, args: list = None,
-                 ai_handler: partial[BaseAiHandler,] = LiteLLMAIHandler):
+                 ai_handler: partial[BaseAiHandler,] = SimpleAPIHandler):
         """
         Initialize the PRDescription object with the necessary attributes and objects for generating a PR description
         using an AI model.
