@@ -24,7 +24,7 @@ from ..algo.utils import (PRReviewHeader, Range, clip_tokens,
                           load_large_diff, set_file_languages)
 from ..config_loader import get_settings
 from ..log import get_logger
-from ..servers.utils import RateLimitExceeded
+from .utils import RateLimitExceeded
 from .git_provider import (MAX_FILES_ALLOWED_FULL, FilePatchInfo, GitProvider,
                            IncrementalPR)
 

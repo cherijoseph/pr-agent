@@ -4,6 +4,7 @@ import traceback
 from typing import Callable, List, Tuple
 
 from github import RateLimitExceededException
+from pr_agent.git_providers.utils import RateLimitExceeded
 
 from pr_agent.algo.file_filter import filter_ignored
 from pr_agent.algo.git_patch_processing import (
@@ -52,7 +53,7 @@ def get_pr_diff(git_provider: GitProvider, token_handler: TokenHandler,
 
     try:
         diff_files = git_provider.get_diff_files()
-    except RateLimitExceededException as e:
+    except (RateLimitExceededException, RateLimitExceeded) as e:
         get_logger().error(f"Rate limit exceeded for git provider API. original message {e}")
         raise
 
@@ -146,7 +147,7 @@ def get_pr_diff_multiple_patchs(git_provider: GitProvider, token_handler: TokenH
                 add_line_numbers_to_hunks: bool = False, disable_extra_lines: bool = False):
     try:
         diff_files = git_provider.get_diff_files()
-    except RateLimitExceededException as e:
+    except (RateLimitExceededException, RateLimitExceeded) as e:
         get_logger().error(f"Rate limit exceeded for git provider API. original message {e}")
         raise
 
@@ -391,7 +392,7 @@ def get_pr_multi_diffs(git_provider: GitProvider,
     """
     try:
         diff_files = git_provider.get_diff_files()
-    except RateLimitExceededException as e:
+    except (RateLimitExceededException, RateLimitExceeded) as e:
         get_logger().error(f"Rate limit exceeded for git provider API. original message {e}")
         raise
 

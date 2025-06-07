@@ -160,7 +160,6 @@ python3 -m pr_agent.cli --pr_url <pr_url> describe
 python3 -m pr_agent.cli --pr_url <pr_url> improve
 python3 -m pr_agent.cli --pr_url <pr_url> add_docs
 python3 -m pr_agent.cli --pr_url <pr_url> generate_labels
-python3 -m pr_agent.cli --issue_url <issue_url> similar_issue
 ...
 ```
 

@@ -7,12 +7,12 @@ from jinja2 import Environment, StrictUndefined
 
 from pr_agent.algo import MAX_TOKENS
 from pr_agent.algo.ai_handlers.base_ai_handler import BaseAiHandler
-from pr_agent.algo.ai_handlers.litellm_ai_handler import LiteLLMAIHandler
+from pr_agent.algo.ai_handlers.simple_api_handler import SimpleAPIHandler
 from pr_agent.algo.pr_processing import retry_with_fallback_models
 from pr_agent.algo.token_handler import TokenHandler
 from pr_agent.algo.utils import ModelType, clip_tokens, load_yaml, get_max_tokens
 from pr_agent.config_loader import get_settings
-from pr_agent.git_providers import BitbucketServerProvider, GithubProvider, get_git_provider_with_context
+from pr_agent.git_providers import GithubProvider, get_git_provider_with_context
 from pr_agent.log import get_logger
 
 
@@ -30,7 +30,7 @@ def extract_header(snippet):
     return res
 
 class PRHelpMessage:
-    def __init__(self, pr_url: str, args=None, ai_handler: partial[BaseAiHandler,] = LiteLLMAIHandler, return_as_string=False):
+    def __init__(self, pr_url: str, args=None, ai_handler: partial[BaseAiHandler,] = SimpleAPIHandler, return_as_string=False):
         self.git_provider = get_git_provider_with_context(pr_url)
         self.ai_handler = ai_handler()
         self.question_str = self.parse_args(args)
@@ -189,7 +189,7 @@ class PRHelpMessage:
                 else:
                     get_logger().info(f"Answer:\n{answer_str}")
             else:
-                if not isinstance(self.git_provider, BitbucketServerProvider) and not self.git_provider.is_supported("gfm_markdown"):
+                if not self.git_provider.is_supported("gfm_markdown"):
                     self.git_provider.publish_comment(
                         "The `Help` tool requires gfm markdown, which is not supported by your code platform.")
                     return
@@ -279,9 +279,6 @@ class PRHelpMessage:
                     pr_comment += "</table>\n\n"
                     pr_comment += f"""\n\n(1) Note that each tool can be [triggered automatically](https://pr-agent-docs.codium.ai/usage-guide/automations_and_usage/#github-app-automatic-tools-when-a-new-pr-is-opened) when a new PR is opened, or called manually by [commenting on a PR](https://pr-agent-docs.codium.ai/usage-guide/automations_and_usage/#online-usage)."""
                     pr_comment += f"""\n\n(2) Tools marked with [*] require additional parameters to be passed. For example, to invoke the `/ask` tool, you need to comment on a PR: `/ask "<question content>"`. See the relevant documentation for each tool for more details."""
-                elif isinstance(self.git_provider, BitbucketServerProvider):
-                    # only support basic commands in BBDC
-                    pr_comment = generate_bbdc_table(tool_names[:4], descriptions[:4])
                 else:
                     pr_comment += f"<table><tr align='left'><th align='left'>Tool</th><th align='left'>Command</th><th align='left'>Description</th></tr>"
                     for i in range(len(tool_names)):
