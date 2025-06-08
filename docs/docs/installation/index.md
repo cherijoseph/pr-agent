@@ -3,8 +3,6 @@
 ## Self-hosted PR-Agent
 
 There are several ways to use self-hosted PR-Agent:
-
-- [Locally](./locally.md)
 - [GitHub integration](./github.md)
 
 ## Qodo Merge 💎

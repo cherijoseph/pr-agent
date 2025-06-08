@@ -24,15 +24,11 @@ Note that in addition to the dedicated tool `generate_labels`, the custom labels
 
 There are 3 ways to enable custom labels:
 
-#### 1. CLI (local configuration file)
-
-When working from CLI, you need to apply the [configuration changes](#configuration-options) to the [custom_labels file](https://github.com/Codium-ai/pr-agent/blob/main/pr_agent/settings/custom_labels.toml):
-
-#### 2. Repo configuration file
+#### Repo configuration file
 
 To enable custom labels, you need to apply the [configuration changes](#configuration-options) to the local `.pr_agent.toml` file in your repository.
 
-#### 3. Handle custom labels from the Repo's labels page 💎
+#### Handle custom labels from the Repo's labels page 💎
 
 > This feature is available only in Qodo Merge
 

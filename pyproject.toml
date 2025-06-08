@@ -42,8 +42,7 @@ include = [
   "pr_agent*",
 ] # include pr_agent and any sub-packages it finds under it.
 
-[project.scripts]
-pr-agent = "pr_agent.cli:run"
+
 
 [tool.ruff]
 line-length = 120

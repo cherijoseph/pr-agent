@@ -50,12 +50,11 @@ Test PR-Agent on any public GitHub repository by commenting `@CodiumAI-Agent /im
 Add automated PR reviews to your repository with a simple workflow file using [GitHub Action setup guide](https://qodo-merge-docs.qodo.ai/installation/github/#run-as-a-github-action)
 
 
-### CLI Usage
-Run PR-Agent locally on your repository via command line: [Local CLI setup guide](https://qodo-merge-docs.qodo.ai/usage-guide/automations_and_usage/#local-repo-cli)
-
 ### Jenkins Pipeline
-You can also run PR-Agent from a Jenkins job triggered by GitHub webhooks. Configure your pipeline to call
-`python -m pr_agent.cli --pr_url <pr_url> <command>` using the API endpoint and token defined in `configuration.toml`.
+Run PR-Agent from a Jenkins job triggered by GitHub webhooks. Configure your
+pipeline to call a short Python script that invokes
+`PRAgent().handle_request(<pr_url>, [<command>])` using the API endpoint and
+token defined in `configuration.toml`.
 
 ### Discover Qodo Merge 💎 
 Zero-setup hosted solution with advanced features and priority support
