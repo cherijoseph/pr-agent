@@ -2,23 +2,20 @@ import shlex
 from functools import partial
 
 from pr_agent.algo.ai_handlers.base_ai_handler import BaseAiHandler
-from pr_agent.algo.ai_handlers.litellm_ai_handler import LiteLLMAIHandler
+from pr_agent.algo.ai_handlers.simple_api_handler import SimpleAPIHandler
 from pr_agent.algo.cli_args import CliArgs
 from pr_agent.algo.utils import update_settings_from_args
 from pr_agent.config_loader import get_settings
 from pr_agent.git_providers.utils import apply_repo_settings
 from pr_agent.log import get_logger
-from pr_agent.tools.pr_add_docs import PRAddDocs
 from pr_agent.tools.pr_code_suggestions import PRCodeSuggestions
 from pr_agent.tools.pr_config import PRConfig
 from pr_agent.tools.pr_description import PRDescription
-from pr_agent.tools.pr_generate_labels import PRGenerateLabels
 from pr_agent.tools.pr_help_docs import PRHelpDocs
 from pr_agent.tools.pr_help_message import PRHelpMessage
 from pr_agent.tools.pr_line_questions import PR_LineQuestions
 from pr_agent.tools.pr_questions import PRQuestions
 from pr_agent.tools.pr_reviewer import PRReviewer
-from pr_agent.tools.pr_similar_issue import PRSimilarIssue
 from pr_agent.tools.pr_update_changelog import PRUpdateChangelog
 
 command2class = {
@@ -37,9 +34,6 @@ command2class = {
     "config": PRConfig,
     "settings": PRConfig,
     "help": PRHelpMessage,
-    "similar_issue": PRSimilarIssue,
-    "add_docs": PRAddDocs,
-    "generate_labels": PRGenerateLabels,
     "help_docs": PRHelpDocs,
 }
 
@@ -48,7 +42,7 @@ commands = list(command2class.keys())
 
 
 class PRAgent:
-    def __init__(self, ai_handler: partial[BaseAiHandler,] = LiteLLMAIHandler):
+    def __init__(self, ai_handler: partial[BaseAiHandler,] = SimpleAPIHandler):
         self.ai_handler = ai_handler  # will be initialized in run_action
 
     async def handle_request(self, pr_url, request, notify=None) -> bool:

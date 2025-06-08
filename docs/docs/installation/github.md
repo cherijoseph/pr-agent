@@ -44,7 +44,6 @@ When you open your next PR, you should see a comment from `github-actions` bot w
 ```yaml
       env:
         # ... previous environment values
-        OPENAI.ORG: "<Your organization name under your OpenAI account>"
         PR_REVIEWER.REQUIRE_TESTS_REVIEW: "false" # Disable tests review
         PR_CODE_SUGGESTIONS.NUM_CODE_SUGGESTIONS: 6 # Increase number of code suggestions
 ```
@@ -128,7 +127,6 @@ cp pr_agent/settings/.secrets_template.toml pr_agent/settings/.secrets.toml
 # Edit .secrets.toml file
 ```
 
-- Your OpenAI key.
 - Copy your app's private key to the private_key field.
 - Copy your app's ID to the app_id field.
 - Copy your app's webhook secret to the webhook_secret field.
@@ -211,7 +209,6 @@ For production Lambda deployments, use AWS Secrets Manager instead of environmen
 
 ```json
 {
-  "openai.key": "sk-proj-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
   "github.webhook_secret": "your-webhook-secret-from-step-2",
   "github.private_key": "-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEA...\n-----END RSA PRIVATE KEY-----"
 }
@@ -225,74 +222,3 @@ AWS_SECRETS_MANAGER__SECRET_ARN=arn:aws:secretsmanager:us-east-1:123456789012:se
 CONFIG__SECRET_PROVIDER=aws_secrets_manager
 ```
 
----
-
-## AWS CodeCommit Setup
-
-Not all features have been added to CodeCommit yet.  As of right now, CodeCommit has been implemented to run the Qodo Merge CLI on the command line, using AWS credentials stored in environment variables.  (More features will be added in the future.)  The following is a set of instructions to have Qodo Merge do a review of your CodeCommit pull request from the command line:
-
-1. Create an IAM user that you will use to read CodeCommit pull requests and post comments
-    - Note: That user should have CLI access only, not Console access
-2. Add IAM permissions to that user, to allow access to CodeCommit (see IAM Role example below)
-3. Generate an Access Key for your IAM user
-4. Set the Access Key and Secret using environment variables (see Access Key example below)
-5. Set the `git_provider` value to `codecommit` in the `pr_agent/settings/configuration.toml` settings file
-6. Set the `PYTHONPATH` to include your `pr-agent` project directory
-    - Option A: Add `PYTHONPATH="/PATH/TO/PROJECTS/pr-agent` to your `.env` file
-    - Option B: Set `PYTHONPATH` and run the CLI in one command, for example:
-        - `PYTHONPATH="/PATH/TO/PROJECTS/pr-agent python pr_agent/cli.py [--ARGS]`
-
----
-
-#### AWS CodeCommit IAM Role Example
-
-Example IAM permissions to that user to allow access to CodeCommit:
-
-- Note: The following is a working example of IAM permissions that has read access to the repositories and write access to allow posting comments
-- Note: If you only want pr-agent to review your pull requests, you can tighten the IAM permissions further, however this IAM example will work, and allow the pr-agent to post comments to the PR
-- Note: You may want to replace the `"Resource": "*"` with your list of repos, to limit access to only those repos
-
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "codecommit:BatchDescribe*",
-                "codecommit:BatchGet*",
-                "codecommit:Describe*",
-                "codecommit:EvaluatePullRequestApprovalRules",
-                "codecommit:Get*",
-                "codecommit:List*",
-                "codecommit:PostComment*",
-                "codecommit:PutCommentReaction",
-                "codecommit:UpdatePullRequestDescription",
-                "codecommit:UpdatePullRequestTitle"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-```
-
-#### AWS CodeCommit Access Key and Secret
-
-Example setting the Access Key and Secret using environment variables
-
-```sh
-export AWS_ACCESS_KEY_ID="XXXXXXXXXXXXXXXX"
-export AWS_SECRET_ACCESS_KEY="XXXXXXXXXXXXXXXX"
-export AWS_DEFAULT_REGION="us-east-1"
-```
-
-#### AWS CodeCommit CLI Example
-
-After you set up AWS CodeCommit using the instructions above, here is an example CLI run that tells pr-agent to **review** a given pull request.
-(Replace your specific PYTHONPATH and PR URL in the example)
-
-```sh
-PYTHONPATH="/PATH/TO/PROJECTS/pr-agent" python pr_agent/cli.py \
-  --pr_url https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/MY_REPO_NAME/pull-requests/321 \
-  review
-```

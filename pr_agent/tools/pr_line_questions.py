@@ -5,7 +5,7 @@ from functools import partial
 from jinja2 import Environment, StrictUndefined
 
 from pr_agent.algo.ai_handlers.base_ai_handler import BaseAiHandler
-from pr_agent.algo.ai_handlers.litellm_ai_handler import LiteLLMAIHandler
+from pr_agent.algo.ai_handlers.simple_api_handler import SimpleAPIHandler
 from pr_agent.algo.git_patch_processing import (
     decouple_and_convert_to_hunks_with_lines_numbers, extract_hunk_lines_from_patch)
 from pr_agent.algo.pr_processing import get_pr_diff, retry_with_fallback_models
@@ -19,7 +19,7 @@ from pr_agent.log import get_logger
 from pr_agent.servers.help import HelpMessage
 
 class PR_LineQuestions:
-    def __init__(self, pr_url: str, args=None, ai_handler: partial[BaseAiHandler,] = LiteLLMAIHandler):
+    def __init__(self, pr_url: str, args=None, ai_handler: partial[BaseAiHandler,] = SimpleAPIHandler):
         self.question_str = self.parse_args(args)
         self.git_provider = get_git_provider()(pr_url)
         self.main_pr_language = get_main_pr_language(

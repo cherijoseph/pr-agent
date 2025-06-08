@@ -5,6 +5,11 @@ import tempfile
 from dynaconf import Dynaconf
 from starlette_context import context
 
+
+class RateLimitExceeded(Exception):
+    """Raised when the git provider API rate limit has been exceeded."""
+    pass
+
 from pr_agent.config_loader import get_settings
 from pr_agent.git_providers import get_git_provider_with_context
 from pr_agent.log import get_logger

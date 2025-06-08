@@ -63,7 +63,6 @@ env:
   GIT_REPO_URL: ${{ github.event.repository.clone_url }}
   ISSUE_URL: ${{ github.event.issue.html_url || github.event.comment.html_url }}
   ISSUE_BODY: ${{ github.event.issue.body || github.event.comment.body }}
-  OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
 
 # The actual set of actions
 jobs:
@@ -81,15 +80,20 @@ jobs:
         if: ${{ env.ISSUE_URL != '' }}
         uses: docker://codiumai/pr-agent:latest
         with:
-          entrypoint: /bin/bash #Replace invoking cli.py directly with a shell
+          entrypoint: /bin/bash
           args: |
             -c "cd /app && \
             echo 'Running Issue Agent action step on ISSUE_URL=$ISSUE_URL' && \
             export config__git_provider='github' && \
-            export github__user_token=$GITHUB_TOKEN && \            
+            export github__user_token=$GITHUB_TOKEN && \
             export github__base_url=$GITHUB_API_URL && \
-            export openai__key=$OPENAI_KEY && \
-            python -m pr_agent.cli --issue_url=$ISSUE_URL --pr_help_docs.repo_url="..." --pr_help_docs.docs_path="..." --pr_help_docs.openai_key=$OPENAI_KEY && \help_docs \"$ISSUE_BODY\""
+            python - <<'EOS'
+from pr_agent.agent.pr_agent import PRAgent
+import asyncio
+asyncio.run(PRAgent().handle_request(
+    '$ISSUE_URL',
+))
+EOS"
 ```
 
 3) Following completion of the remaining steps (such as adding secrets and relevant configurations, such as `repo_url` and `docs_path`) merge this change to your main branch.

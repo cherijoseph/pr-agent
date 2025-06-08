@@ -9,7 +9,7 @@ from tempfile import TemporaryDirectory
 
 from pr_agent.algo import MAX_TOKENS
 from pr_agent.algo.ai_handlers.base_ai_handler import BaseAiHandler
-from pr_agent.algo.ai_handlers.litellm_ai_handler import LiteLLMAIHandler
+from pr_agent.algo.ai_handlers.simple_api_handler import SimpleAPIHandler
 from pr_agent.algo.pr_processing import retry_with_fallback_models
 from pr_agent.algo.token_handler import TokenHandler
 from pr_agent.algo.utils import clip_tokens, get_max_tokens, load_yaml, ModelType
@@ -283,7 +283,7 @@ class PredictionPreparator:
 
 
 class PRHelpDocs(object):
-    def __init__(self, ctx_url, ai_handler:partial[BaseAiHandler,] = LiteLLMAIHandler, args: tuple[str]=None, return_as_string: bool=False):
+    def __init__(self, ctx_url, ai_handler:partial[BaseAiHandler,] = SimpleAPIHandler, args: tuple[str]=None, return_as_string: bool=False):
         try:
             self.ctx_url = ctx_url
             self.question = args[0] if args else None

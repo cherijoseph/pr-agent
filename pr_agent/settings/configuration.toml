@@ -8,6 +8,9 @@
 # models
 model="o4-mini"
 fallback_models=["gpt-4.1"]
+# Custom API endpoint for LLM calls
+ai_endpoint=""
+ai_token=""
 #model_reasoning="o4-mini" # dedictated reasoning model for self-reflection
 #model_weak="gpt-4o" # optional, a weaker model to use for some easier tasks
 # CLI
@@ -39,7 +42,6 @@ allow_dynamic_context=true
 max_extra_lines_before_dynamic_context = 10 # will try to include up to 10 extra lines before the hunk in the patch, until we reach an enclosing function or class
 patch_extra_lines_before = 5 # Number of extra lines (+3 default ones) to include before each hunk in the patch
 patch_extra_lines_after = 1 # Number of extra lines (+3 default ones) to include after each hunk in the patch
-secret_provider="" # "" (disabled), "google_cloud_storage", or "aws_secrets_manager" for secure secret management
 cli_mode=false
 ai_disclaimer_title=""  # Pro feature, title for a collapsible disclaimer to AI outputs
 ai_disclaimer=""  # Pro feature, full text for the AI disclaimer
@@ -165,55 +167,11 @@ publish_post_process_suggestion_impact=true
 wiki_page_accepted_suggestions=true
 allow_thumbs_up_down=false
 
-[pr_custom_prompt] # /custom_prompt #
-prompt = """\
-The code suggestions should focus only on the following:
-- ...
-- ...
-...
-"""
-suggestions_score_threshold=0
-num_code_suggestions_per_chunk=3
-self_reflect_on_custom_suggestions=true
-enable_help_text=false
-
-
-[pr_add_docs] # /add_docs #
-extra_instructions = ""
-docs_style = "Sphinx" # "Google Style with Args, Returns, Attributes...etc", "Numpy Style", "Sphinx Style", "PEP257", "reStructuredText"
-file = ""              # in case there are several components with the same name, you can specify the relevant file
-class_name = ""        # in case there are several methods with the same name in the same file, you can specify the relevant class name
-
 [pr_update_changelog] # /update_changelog #
 push_changelog_changes=false
 extra_instructions = ""
 add_pr_link=true
 skip_ci_on_push=true
-
-[pr_analyze] # /analyze #
-enable_help_text=true
-
-[pr_test] # /test #
-extra_instructions = ""
-testing_framework = "" # specify the testing framework you want to use
-num_tests=3            # number of tests to generate. max 5.
-avoid_mocks=true       # if true, the generated tests will prefer to use real objects instead of mocks
-file = ""              # in case there are several components with the same name, you can specify the relevant file
-class_name = ""        # in case there are several methods with the same name in the same file, you can specify the relevant class name
-enable_help_text=false
-
-[pr_improve_component] # /improve_component #
-num_code_suggestions=4
-extra_instructions = ""
-file = ""              # in case there are several components with the same name, you can specify the relevant file
-class_name = ""        # in case there are several methods with the same name in the same file, you can specify the relevant class name
-
-[checks] # /checks (pro feature) #
-enable_auto_checks_feedback=true
-excluded_checks_list=["lint"] # list of checks to exclude, for example: ["check1", "check2"]
-persistent_comment=true
-enable_help_text=true
-final_update_message = false
 
 [pr_help] # /help #
 force_local_db=false
@@ -268,74 +226,7 @@ push_commands = [
     "/review",
 ]
 
-[gitlab]
-url = "https://gitlab.com"
-pr_commands = [
-    "/describe --pr_description.final_update_message=false",
-    "/review",
-    "/improve",
-]
-handle_push_trigger = false
-push_commands = [
-    "/describe",
-    "/review",
-]
 
-[gitea_app]
-url = "https://gitea.com"
-handle_push_trigger = false
-pr_commands = [
-    "/describe",
-    "/review",
-    "/improve",
-]
-
-[bitbucket_app]
-pr_commands = [
-    "/describe --pr_description.final_update_message=false",
-    "/review",
-    "/improve --pr_code_suggestions.commitable_code_suggestions=true",
-]
-avoid_full_files = false
-
-[local]
-# LocalGitProvider settings - uncomment to use paths other than default
-# description_path= "path/to/description.md"
-# review_path= "path/to/review.md"
-
-[gerrit]
-# endpoint to the gerrit service
-# url = "ssh://gerrit.example.com:29418"
-# user for gerrit authentication
-# user = "ai-reviewer"
-# patch server where patches will be saved
-# patch_server_endpoint = "http://127.0.0.1:5000/patch"
-# token to authenticate in the patch server
-# patch_server_token = ""
-
-[bitbucket_server]
-# URL to the BitBucket Server instance
-# url = "https://git.bitbucket.com"
-url = ""
-pr_commands = [
-    "/describe --pr_description.final_update_message=false",
-    "/review",
-    "/improve --pr_code_suggestions.commitable_code_suggestions=true",
-]
-
-[litellm]
-# use_client = false
-# drop_params = false
-enable_callbacks = false
-success_callback = []
-failure_callback = []
-service_callback = []
-
-[pr_similar_issue]
-skip_comments = false
-force_update_dataset = false
-max_issues_to_scan = 500
-vectordb = "pinecone"
 
 [pr_find_similar_component]
 class_name = ""
@@ -345,13 +236,6 @@ allow_fallback_less_words = true
 number_of_keywords = 5
 number_of_results = 5
 
-[pinecone]
-# fill and place in .secrets.toml
-#api_key = ...
-# environment = "gcp-starter"
-
-[lancedb]
-uri = "./lancedb"
 
 [best_practices]
 content = ""
@@ -367,9 +251,3 @@ content = ""
 max_patterns = 5 # max number of patterns to be detected
 
 
-[azure_devops_server]
-pr_commands = [
-    "/describe",
-    "/review",
-    "/improve",
-]

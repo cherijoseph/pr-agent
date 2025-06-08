@@ -1,11 +1,10 @@
 # Overview
 
 [PR-Agent](https://github.com/Codium-ai/pr-agent) is an open-source tool to help efficiently review and handle pull requests.
-Qodo Merge is a hosted version of PR-Agent, designed for companies and teams that require additional features and capabilities
 
 - See the [Installation Guide](./installation/index.md) for instructions on installing and running the tool on different git platforms.
 
-- See the [Usage Guide](./usage-guide/index.md) for instructions on running commands via different interfaces, including _CLI_, _online usage_, or by _automatically triggering_ them when a new PR is opened.
+- See the [Usage Guide](./usage-guide/index.md) for instructions on running commands online or by automatically triggering them when a new PR is opened.
 
 - See the [Tools Guide](./tools/index.md) for a detailed description of the different tools.
 
@@ -17,14 +16,12 @@ To search the documentation site using natural language:
 
 1) Comment `/help "your question"` in either:
 
-   - A pull request where Qodo Merge is installed
    - A [PR Chat](https://qodo-merge-docs.qodo.ai/chrome-extension/features/#pr-chat)
 
 2) The bot will respond with an [answer](https://github.com/Codium-ai/pr-agent/pull/1241#issuecomment-2365259334) that includes relevant documentation links.
 
 ## Features
 
-PR-Agent and Qodo Merge offers extensive pull request functionalities across various git providers:
 
 |       |                                                                                                                     | GitHub | GitLab | Bitbucket | Azure DevOps | Gitea |
 | ----- |---------------------------------------------------------------------------------------------------------------------|:------:|:------:|:---------:|:------------:|:-----:|
@@ -50,7 +47,6 @@ PR-Agent and Qodo Merge offers extensive pull request functionalities across var
 |       | [PR Chat](https://qodo-merge-docs.qodo.ai/chrome-extension/features/#pr-chat) 💎                                    |   ✅   |        |           |              |       |
 |       | [Suggestion Tracking](https://qodo-merge-docs.qodo.ai/tools/improve/#suggestion-tracking) 💎                        |   ✅   |   ✅   |           |              |       |
 |       |                                                                                                                     |        |        |           |              |       |
-| [USAGE](https://qodo-merge-docs.qodo.ai/usage-guide/) | [CLI](https://qodo-merge-docs.qodo.ai/usage-guide/automations_and_usage/#local-repo-cli)                            |   ✅   |   ✅   |    ✅     |      ✅      |  ✅   |
 |       | [App / webhook](https://qodo-merge-docs.qodo.ai/usage-guide/automations_and_usage/#github-app)                      |   ✅   |   ✅   |    ✅     |      ✅      |  ✅   |
 |       | [Tagging bot](https://github.com/Codium-ai/pr-agent#try-it-now)                                                     |   ✅   |        |           |              |       |
 |       | [Actions](https://qodo-merge-docs.qodo.ai/installation/github/#run-as-a-github-action)                              |   ✅   |   ✅   |    ✅     |      ✅      |       |
@@ -72,8 +68,6 @@ PR-Agent and Qodo Merge offers extensive pull request functionalities across var
 |       | [RAG context enrichment](https://qodo-merge-docs.qodo.ai/core-abilities/rag_context_enrichment/)                    |   ✅   |        |    ✅     |              |       |
 |       | [Self reflection](https://qodo-merge-docs.qodo.ai/core-abilities/self_reflection/)                                  |   ✅   |   ✅   |    ✅     |      ✅      |       |
 |       | [Static code analysis](https://qodo-merge-docs.qodo.ai/core-abilities/static_code_analysis/) 💎                     |   ✅   |   ✅   |           |              |       |
-!!! note "💎 means Qodo Merge only"
-      All along the documentation, 💎 marks a feature available only in [Qodo Merge](https://www.codium.ai/pricing/){:target="_blank"}, and not in the open-source version.
 
 ## Example Results
 
@@ -109,8 +103,6 @@ PR-Agent and Qodo Merge offers extensive pull request functionalities across var
 
 ## How it Works
 
-The following diagram illustrates Qodo Merge tools and their flow:
 
-![Qodo Merge Tools](https://codium.ai/images/pr_agent/diagram-v0.9.png)
 
 Check out the [PR Compression strategy](core-abilities/index.md) page for more details on how we convert a code diff to a manageable LLM prompt
