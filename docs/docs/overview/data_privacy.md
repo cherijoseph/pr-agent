@@ -1,10 +1,10 @@
 ## Self-hosted PR-Agent
 
-- If you self-host PR-Agent with your OpenAI (or other LLM provider) API key, it is between you and the provider. We don't send your code data to Qodo servers.
+- If you self-host PR-Agent with your own model API key, it is between you and the provider. We don't send your code data to Qodo servers.
 
 ## Qodo Merge 💎
 
-- When using Qodo Merge💎, hosted by Qodo, we will not store any of your data, nor will we use it for training. You will also benefit from an OpenAI account with zero data retention.
+- When using Qodo Merge💎, hosted by Qodo, 
 
 - For certain clients, Qodo Merge will use Qodo’s proprietary models. If this is the case, you will be notified.
 

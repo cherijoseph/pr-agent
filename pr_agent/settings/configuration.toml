@@ -167,55 +167,11 @@ publish_post_process_suggestion_impact=true
 wiki_page_accepted_suggestions=true
 allow_thumbs_up_down=false
 
-[pr_custom_prompt] # /custom_prompt #
-prompt = """\
-The code suggestions should focus only on the following:
-- ...
-- ...
-...
-"""
-suggestions_score_threshold=0
-num_code_suggestions_per_chunk=3
-self_reflect_on_custom_suggestions=true
-enable_help_text=false
-
-
-[pr_add_docs] # /add_docs #
-extra_instructions = ""
-docs_style = "Sphinx" # "Google Style with Args, Returns, Attributes...etc", "Numpy Style", "Sphinx Style", "PEP257", "reStructuredText"
-file = ""              # in case there are several components with the same name, you can specify the relevant file
-class_name = ""        # in case there are several methods with the same name in the same file, you can specify the relevant class name
-
 [pr_update_changelog] # /update_changelog #
 push_changelog_changes=false
 extra_instructions = ""
 add_pr_link=true
 skip_ci_on_push=true
-
-[pr_analyze] # /analyze #
-enable_help_text=true
-
-[pr_test] # /test #
-extra_instructions = ""
-testing_framework = "" # specify the testing framework you want to use
-num_tests=3            # number of tests to generate. max 5.
-avoid_mocks=true       # if true, the generated tests will prefer to use real objects instead of mocks
-file = ""              # in case there are several components with the same name, you can specify the relevant file
-class_name = ""        # in case there are several methods with the same name in the same file, you can specify the relevant class name
-enable_help_text=false
-
-[pr_improve_component] # /improve_component #
-num_code_suggestions=4
-extra_instructions = ""
-file = ""              # in case there are several components with the same name, you can specify the relevant file
-class_name = ""        # in case there are several methods with the same name in the same file, you can specify the relevant class name
-
-[checks] # /checks (pro feature) #
-enable_auto_checks_feedback=true
-excluded_checks_list=["lint"] # list of checks to exclude, for example: ["check1", "check2"]
-persistent_comment=true
-enable_help_text=true
-final_update_message = false
 
 [pr_help] # /help #
 force_local_db=false

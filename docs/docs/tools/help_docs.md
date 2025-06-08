@@ -63,7 +63,6 @@ env:
   GIT_REPO_URL: ${{ github.event.repository.clone_url }}
   ISSUE_URL: ${{ github.event.issue.html_url || github.event.comment.html_url }}
   ISSUE_BODY: ${{ github.event.issue.body || github.event.comment.body }}
-  OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
 
 # The actual set of actions
 jobs:
@@ -88,13 +87,11 @@ jobs:
             export config__git_provider='github' && \
             export github__user_token=$GITHUB_TOKEN && \
             export github__base_url=$GITHUB_API_URL && \
-            export openai__key=$OPENAI_KEY && \
             python - <<'EOS'
 from pr_agent.agent.pr_agent import PRAgent
 import asyncio
 asyncio.run(PRAgent().handle_request(
     '$ISSUE_URL',
-    ['help_docs', f'--pr_help_docs.repo_url=...', f'--pr_help_docs.docs_path=...', f'--pr_help_docs.openai_key=$OPENAI_KEY']
 ))
 EOS"
 ```

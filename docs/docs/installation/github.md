@@ -44,7 +44,6 @@ When you open your next PR, you should see a comment from `github-actions` bot w
 ```yaml
       env:
         # ... previous environment values
-        OPENAI.ORG: "<Your organization name under your OpenAI account>"
         PR_REVIEWER.REQUIRE_TESTS_REVIEW: "false" # Disable tests review
         PR_CODE_SUGGESTIONS.NUM_CODE_SUGGESTIONS: 6 # Increase number of code suggestions
 ```
@@ -128,7 +127,6 @@ cp pr_agent/settings/.secrets_template.toml pr_agent/settings/.secrets.toml
 # Edit .secrets.toml file
 ```
 
-- Your OpenAI key.
 - Copy your app's private key to the private_key field.
 - Copy your app's ID to the app_id field.
 - Copy your app's webhook secret to the webhook_secret field.
@@ -211,7 +209,6 @@ For production Lambda deployments, use AWS Secrets Manager instead of environmen
 
 ```json
 {
-  "openai.key": "sk-proj-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
   "github.webhook_secret": "your-webhook-secret-from-step-2",
   "github.private_key": "-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEA...\n-----END RSA PRIVATE KEY-----"
 }

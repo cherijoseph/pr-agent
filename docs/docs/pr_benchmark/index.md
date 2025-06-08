@@ -7,7 +7,7 @@ Our diverse dataset comprises of 400 pull requests from over 100 repositories, s
 
 - For each pull request, two distinct LLMs process the same prompt using the Qodo Merge `improve` tool, each generating two sets of responses. The prompt for response generation can be found [here](https://github.com/qodo-ai/pr-agent/blob/main/pr_agent/settings/code_suggestions/pr_code_suggestions_prompts_not_decoupled.toml).
 
-- Subsequently, a high-performing third model (an AI judge) evaluates the responses from the initial two models to determine the superior one. We utilize OpenAI's `o3` model as the judge, though other models have yielded consistent results. The prompt for this comparative judgment is available [here](https://github.com/Codium-ai/pr-agent-settings/tree/main/benchmark).
+- Subsequently, a high-performing third model (an AI judge) evaluates the responses from the initial two models to determine the superior one. We utilize an external LLM as the judge, though other models have yielded consistent results. The prompt for this comparative judgment is available [here](https://github.com/Codium-ai/pr-agent-settings/tree/main/benchmark).
 
 - We aggregate comparison outcomes across all the pull requests, calculating the win rate for each model. We also analyze the qualitative feedback (the "why" explanations from the judge) to identify each model's comparative strengths and weaknesses.
 This approach provides not just a quantitative score but also a detailed analysis of each model's strengths and weaknesses.

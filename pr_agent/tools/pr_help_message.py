@@ -68,7 +68,6 @@ class PRHelpMessage:
     def format_markdown_header(self, header: str) -> str:
         try:
             # First, strip common characters from both ends
-            cleaned = header.strip('# 💎\n')
 
             # Define all characters to be removed/replaced in a single pass
             replacements = {
@@ -202,15 +201,7 @@ class PRHelpMessage:
                 tool_names.append(f"[IMPROVE]({base_path}/improve/)")
                 tool_names.append(f"[UPDATE CHANGELOG]({base_path}/update_changelog/)")
                 tool_names.append(f"[HELP DOCS]({base_path}/help_docs/)")
-                tool_names.append(f"[ADD DOCS]({base_path}/documentation/) 💎")
-                tool_names.append(f"[TEST]({base_path}/test/) 💎")
-                tool_names.append(f"[IMPROVE COMPONENT]({base_path}/improve_component/) 💎")
-                tool_names.append(f"[ANALYZE]({base_path}/analyze/) 💎")
                 tool_names.append(f"[ASK]({base_path}/ask/)")
-                tool_names.append(f"[GENERATE CUSTOM LABELS]({base_path}/custom_labels/) 💎")
-                tool_names.append(f"[CI FEEDBACK]({base_path}/ci_feedback/) 💎")
-                tool_names.append(f"[CUSTOM PROMPT]({base_path}/custom_prompt/) 💎")
-                tool_names.append(f"[IMPLEMENT]({base_path}/implement/) 💎")
 
                 descriptions = []
                 descriptions.append("Generates PR description - title, type, summary, code walkthrough and labels")
@@ -227,7 +218,6 @@ class PRHelpMessage:
                 descriptions.append("Generates custom labels for the PR, based on specific guidelines defined by the user")
                 descriptions.append("Generates feedback and analysis for a failed CI job")
                 descriptions.append("Generates custom suggestions for improving the PR code, derived only from a specific guidelines prompt defined by the user")
-                descriptions.append("Generates implementation code from review suggestions")
 
                 commands  =[]
                 commands.append("`/describe`")
@@ -235,15 +225,9 @@ class PRHelpMessage:
                 commands.append("`/improve`")
                 commands.append("`/update_changelog`")
                 commands.append("`/help_docs`")
-                commands.append("`/add_docs`")
-                commands.append("`/test`")
-                commands.append("`/improve_component`")
                 commands.append("`/analyze`")
                 commands.append("`/ask`")
-                commands.append("`/generate_labels`")
                 commands.append("`/checks`")
-                commands.append("`/custom_prompt`")
-                commands.append("`/implement`")
 
                 checkbox_list = []
                 checkbox_list.append(" - [ ] Run <!-- /describe -->")
@@ -251,9 +235,6 @@ class PRHelpMessage:
                 checkbox_list.append(" - [ ] Run <!-- /improve -->")
                 checkbox_list.append(" - [ ] Run <!-- /update_changelog -->")
                 checkbox_list.append(" - [ ] Run <!-- /help_docs -->")
-                checkbox_list.append(" - [ ] Run <!-- /add_docs -->")
-                checkbox_list.append(" - [ ] Run <!-- /test -->")
-                checkbox_list.append(" - [ ] Run <!-- /improve_component -->")
                 checkbox_list.append(" - [ ] Run <!-- /analyze -->")
                 checkbox_list.append("[*]")
                 checkbox_list.append("[*]")
